@@ -14,7 +14,6 @@ public class Player extends Entity{
     public Player(String name, int maxHP, int attack) {
         super(name, maxHP, attack);
     }
-    
     /* not yet implimented.
     public void Load(){
         

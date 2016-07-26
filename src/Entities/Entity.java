@@ -14,10 +14,10 @@ public class Entity {
     private int hp;
     private int maxHp;
     private int attack;
-    public Entity(String name, int maxHP,int attack){
+    public Entity(String name, int MaxHP,int attack){
         this.name = name;
-        this.hp = maxHp;
-        this.maxHp = maxHp;
+        this.maxHp = MaxHP;
+        this.hp = MaxHP;
         this.attack = attack;
     }
     public void takeDamage(int attack){

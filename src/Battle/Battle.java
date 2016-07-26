@@ -11,25 +11,27 @@ import java.util.Scanner;
  * @author BensMacMini
  */
 public class Battle {
-    private Player p1;
-    private Entity[] e1 = new Entity[6];
+    final private Player p1;
+    final private Entity[] e1;
     private Enemies temp1;
     private boolean win = false;
-    public Battle(Player player, /*see below int[] ID*/ int ID){
-        p1 = player;
+    public Battle(Player player /*, int[] ID*/){
+        this.e1 = new Entity[6];
+        this.p1 = player;
         /* for multiple monster spawning
         for(int i=0;i<ID.length;i++){
             this.e1[i] = temp.createType(ID[i]);
         }*/
         Entity temp2 = new Entity("Slime",10 ,1 /*create system to replace
                 with actual variables*/);
-        e1[0] = temp2;
+        this.e1[0] = temp2;
     }
     public void encounter(){
         Scanner sc = new Scanner(System.in);
         String input;
         boolean inBattle = true;
         boolean userChosen = false;
+        System.out.println("A " + e1[0].name + "aproaches");
         while(inBattle){
             /* First check to see what the player does */
             System.out.println("What will you do?");
@@ -40,21 +42,25 @@ public class Battle {
                         e1[0].takeDamage(p1.onAttack());
                         userChosen = true;
                         break;
+                    case "view hp":
+                        System.out.println(p1.name + " has " + p1.dispayHp());
+                        System.out.println(e1[0].name + " has " + e1[0].dispayHp());
                     default:
-                        System.out.println("Sorry, right now you can only choose \"attack\"");
+                        System.out.println("Sorry, right now you can only "
+                                + "choose \"attack\" or \"view hp\"");
                 }
             }
             /* Make sure the monster didn't die first
             (a dead enemy can't attack) */
             if(e1[0].checkIfDead()){
-                p1.takeDamage(e1[0].onAttack());
-            }
-            /* Action by monster is in a different "step". Would normally be
-            a "for-in" loop through an array of monster
-            with different attacks */
-            else{
                 inBattle = false;
                 win = true;
+            }
+            // if it didn't die, attack.
+            p1.takeDamage(e1[0].onAttack());
+            //check if the player died.
+            if(p1.checkIfDead()){
+                inBattle = false;
             }
             userChosen = false;
         }

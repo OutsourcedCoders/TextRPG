@@ -18,8 +18,8 @@ public class TextRPG {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        Player me = new Player("Player_name", 50, 1);
-        Battle firstEncounter = new Battle(me, 1);
+        Player me = new Player("Player_name", 50, 2);
+        Battle firstEncounter = new Battle(me);
         firstEncounter.encounter();
     }
     
