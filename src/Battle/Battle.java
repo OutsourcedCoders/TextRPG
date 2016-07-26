@@ -12,23 +12,19 @@ import java.util.Scanner;
  */
 public class Battle {
     private Player p1;
-    /* creates an array of enemies for multiple encounters
     private Enemies[] e1;
-    */
-    //-----these lines won't work for future builds-----// START
-    private Enemies e1;
-    //-----these lines won't work for future builds-----// END
     private Enemies temp;
     private boolean win = false;
-    public Battle(Player p1, /*see below int[] ID*/ int ID){
-        this.p1 = p1;
+    public Battle(Player player, /*see below int[] ID*/ int ID){
+        p1 = player;
         /* for multiple monster spawning
         for(int i=0;i<ID.length;i++){
             this.e1[i] = temp.createType(ID[i]);
         }*/
-        //-----these lines won't work for future builds-----// START
-        this.e1 = temp.createType(ID);
-        //-----these lines won't work for future builds-----// END
+        //-----this line won't work-----//
+        e1[0] = temp.createType(ID);
+        // error is "NullPointerExeption"
+        //------------------------------//
     }
     public void encounter(){
         Scanner sc = new Scanner(System.in);
@@ -43,7 +39,7 @@ public class Battle {
                 input = sc.nextLine();
                 switch(input.toLowerCase()){
                     case "attack":
-                        e1.takeDamage(p1.onAttack());
+                        e1[0].takeDamage(p1.onAttack());
                         userChosen = true;
                         break;
                     default:
@@ -51,18 +47,17 @@ public class Battle {
                 }
             }
 
-            /*make sure the monster didn't die first
+            /* Make sure the monster didn't die first
             (a dead enemy can't attack)*/
-            //-----these lines won't work for future builds-----// START
-            if(e1.checkIfDead()){
+            if(e1[0].checkIfDead()){
                 inBattle = false;
                 win = true;
             }
-            //-----these lines won't work for future builds-----// END
-            /*Responce by monster is a different "step". would normally be
-            a "for-in" loop through an array of monster with different attacks*/
+            /* Action by monster is in a different "step". Would normally be
+            a "for-in" loop through an array of monster
+            with different attacks*/
             else{
-                p1.takeDamage(e1.onAttack());
+                p1.takeDamage(e1[0].onAttack());
             }
             userChosen = false;
         }
@@ -72,6 +67,8 @@ public class Battle {
         }
         else{
             //Game Over
+            System.out.println("Ok, it should have been literally impossible"
+                    + "for you to lose...");
         }
     }
 }
