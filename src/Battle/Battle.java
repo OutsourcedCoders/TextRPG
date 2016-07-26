@@ -46,7 +46,7 @@ public class Battle {
             }
             /* Make sure the monster didn't die first
             (a dead enemy can't attack) */
-            if(!e1[0].checkIfDead()){
+            if(e1[0].checkIfDead()){
                 p1.takeDamage(e1[0].onAttack());
             }
             /* Action by monster is in a different "step". Would normally be
