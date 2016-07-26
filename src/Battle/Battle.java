@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 package Battle;
-import Character.*;
+import Entities.*;
 import java.util.Scanner;
 /**
  *
@@ -12,8 +12,8 @@ import java.util.Scanner;
  */
 public class Battle {
     private Player p1;
-    private Enemies[] e1;
-    private Enemies temp;
+    private Entity[] e1 = new Entity[6];
+    private Enemies temp1;
     private boolean win = false;
     public Battle(Player player, /*see below int[] ID*/ int ID){
         p1 = player;
@@ -21,10 +21,9 @@ public class Battle {
         for(int i=0;i<ID.length;i++){
             this.e1[i] = temp.createType(ID[i]);
         }*/
-        //-----this line won't work-----//
-        e1[0] = temp.createType(ID);
-        // error is "NullPointerExeption"
-        //------------------------------//
+        Entity temp2 = new Entity("Slime",10 ,1 /*create system to replace
+                with actual variables*/);
+        e1[0] = temp2;
     }
     public void encounter(){
         Scanner sc = new Scanner(System.in);
@@ -32,8 +31,7 @@ public class Battle {
         boolean inBattle = true;
         boolean userChosen = false;
         while(inBattle){
-            /* First check to see what the player does
-            */
+            /* First check to see what the player does */
             System.out.println("What will you do?");
             while(!userChosen){
                 input = sc.nextLine();
@@ -46,18 +44,17 @@ public class Battle {
                         System.out.println("Sorry, right now you can only choose \"attack\"");
                 }
             }
-
             /* Make sure the monster didn't die first
-            (a dead enemy can't attack)*/
-            if(e1[0].checkIfDead()){
-                inBattle = false;
-                win = true;
+            (a dead enemy can't attack) */
+            if(!e1[0].checkIfDead()){
+                p1.takeDamage(e1[0].onAttack());
             }
             /* Action by monster is in a different "step". Would normally be
             a "for-in" loop through an array of monster
-            with different attacks*/
+            with different attacks */
             else{
-                p1.takeDamage(e1[0].onAttack());
+                inBattle = false;
+                win = true;
             }
             userChosen = false;
         }

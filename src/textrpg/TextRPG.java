@@ -6,7 +6,7 @@
 package textrpg;
 
 import Battle.Battle;
-import Character.Player;
+import Entities.Player;
 
 /**
  *
