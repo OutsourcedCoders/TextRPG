@@ -9,14 +9,15 @@ package Entities;
  *
  * @author BensMacMini
  */
+//Change to enum *see EnemiesList for example*
 public class Enemies extends Entity {
     public Enemies(String name, int maxHP, int attack) {
         super(name, maxHP, attack);
     }
-    public Entity createType(int ID){
+    public Entity createType(EnemiesList ID){
         Entity temp;
         switch(ID){
-            case 1:
+            case SLIME:
                 temp = new Entity("slime",10,1);
                 return temp;
             default:
