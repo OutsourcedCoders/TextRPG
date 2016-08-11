@@ -9,6 +9,7 @@ package Items;
  *
  * @author BensMacMini
  */
-public class Type {
-    
+public enum Type {
+    CONSUMEABLE,
+    EQUIPTMENT;
 }

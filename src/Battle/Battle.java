@@ -5,6 +5,7 @@
  */
 package Battle;
 import Entities.*;
+import static Entities.EnemyType.*;
 import java.util.Scanner;
 /**
  *
@@ -13,7 +14,7 @@ import java.util.Scanner;
 public class Battle {
     final private Player p1;
     final private Entity[] e1;
-    private final Enemies temp1 =  new Enemies("",0,0);
+    private final Enemy temp1 =  new Enemy("",0,0);
     private boolean win = false;
     public Battle(Player player /*, int[] ID*/){
         this.e1 = new Entity[6];
@@ -22,7 +23,7 @@ public class Battle {
         for(int i=0;i<ID.length;i++){
             this.e1[i] = temp.createType(ID[i]);
         }*/
-        Entity temp2 = temp1.createType(1);
+        Entity temp2 = temp1.createType(SLIME);
         this.e1[0] = temp2;
     }
     public void encounter(){

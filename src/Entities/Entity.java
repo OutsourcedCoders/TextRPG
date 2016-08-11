@@ -12,7 +12,7 @@ package Entities;
 public class Entity {
     public String name;
     private int hp;
-    private int maxHp;
+    private final int maxHp;
     private int attack;
     public Entity(String name, int MaxHP,int attack){
         this.name = name;
