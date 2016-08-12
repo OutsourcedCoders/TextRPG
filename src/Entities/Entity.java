@@ -9,31 +9,10 @@ package Entities;
  *
  * @author BensMacMini
  */
-public class Entity {
-    public String name;
-    private int hp;
-    private final int maxHp;
-    private int attack;
-    public Entity(String name, int MaxHP,int attack){
-        this.name = name;
-        this.maxHp = MaxHP;
-        this.hp = MaxHP;
-        this.attack = attack;
-    }
-    public void takeDamage(int attack){
-        hp = hp - attack;
-        System.out.println(name + " took " + attack + " damage!");
-    }
-    
-    public int onAttack(){
-        return attack;
-    }
-    
-    public String dispayHp(){
-        return hp + "/" + maxHp;
-    }
-
-    public boolean checkIfDead(){
-        return hp <= 0;
-    }
+public interface Entity {
+    public String entityName();
+    public int attack();
+    public int hp();
+    public void takeDamage(int attack);
+    public boolean checkIfDead();
 }

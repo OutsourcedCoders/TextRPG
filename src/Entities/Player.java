@@ -11,13 +11,39 @@ import Items.Item;
  *
  * @author BensMacMini
  */
-public class Player extends Entity{
-    public Item[] Inventory;  
-    public Player(String name, int maxHP, int attack) {
-        super(name, maxHP, attack);
-        Inventory = new Item[20];
+public class Player implements Entity{
+    private String entityName;
+    private int hp;
+    private int maxHp;
+    private int attack;
+    public Player(String Nm, int HP, int Att){
+        this.entityName = Nm;
+        this.hp        = HP;
+        this.maxHp     = HP;
+        this.attack    = Att;
     }
-
+    @Override
+    public String entityName(){
+        return entityName;
+    }
+    @Override
+    public int attack(){
+        return attack;
+    }
+    @Override
+    public int hp(){
+        return hp;
+    }
+    @Override
+    public void takeDamage(int attack){
+        hp = hp - attack;
+    }
+    @Override
+    public boolean checkIfDead(){
+        return hp<=0;
+    }
+    
+    public Item[] Inventory;
     
     public void useItem(String key){
         int itemSlot = 0;
@@ -33,6 +59,10 @@ public class Player extends Entity{
     /* not yet implimented.
     public void Load(){
         
+    }
+    private int exp;
+    private int toNextLv;
+    public void levelUp(){
     }
     */
 }

@@ -5,7 +5,7 @@
  */
 package Battle;
 import Entities.*;
-import static Entities.EnemyType.*;
+import static Entities.Enemy.*;
 import java.util.Scanner;
 /**
  *
@@ -13,26 +13,23 @@ import java.util.Scanner;
  */
 public class Battle {
     final private Player p1;
-    final private Entity[] e1;
-    private final Enemy temp1 =  new Enemy("",0,0);
+    final private Enemy[] e1;
+    private final Enemy temp1 =  DEFAULT;
     private boolean win = false;
     public Battle(Player player /*, int[] ID*/){
-        this.e1 = new Entity[6];
+        this.e1 = new Enemy[6];
         this.p1 = player;
-        /* for multiple monster spawning
-        for(int i=0;i<ID.length;i++){
-            this.e1[i] = temp.createType(ID[i]);
-        }*/
-        Entity temp2 = temp1.createType(SLIME);
+        Enemy temp2 = SLIME;// for multiple or random spawns, handle elsewhere.
         this.e1[0] = temp2;
     }
+    //could split class here, have seperate encounter class that handles spawning
     public void encounter(){
         Scanner sc = new Scanner(System.in);
         String input;
         boolean inBattle = true;
         boolean userChosen = false;
         boolean escaped = false;
-        System.out.println("A " + e1[0].name + " aproaches");
+        System.out.println("A " + e1[0].entityName() + " aproaches");
         while(inBattle){
             /* First check to see what the player does */
             System.out.println("What will you do?");
@@ -40,12 +37,12 @@ public class Battle {
                 input = sc.nextLine();
                 switch(input.toLowerCase()){
                     case "attack":
-                        e1[0].takeDamage(p1.onAttack());
+                        e1[0].takeDamage(p1.attack());
                         userChosen = true;
                         break;
                     case "view hp":
-                        System.out.println(p1.name + " has " + p1.dispayHp() + "HP.");
-                        System.out.println(e1[0].name + " has " + e1[0].dispayHp() + "HP.");
+                        System.out.println(p1.entityName() + " has " + p1.hp() + "HP.");
+                        System.out.println(e1[0].entityName() + " has " + e1[0].hp() + "HP.");
                         break;
                     case "run":
                         System.out.println("You ran away");
@@ -59,12 +56,12 @@ public class Battle {
             /* Make sure the monster didn't die first
             (a dead enemy can't attack) */
             if(e1[0].checkIfDead()){
-                System.out.println(e1[0].name + "has been defeated.");
+                System.out.println(e1[0].entityName() + "has been defeated.");
                 inBattle = false;
                 win = true;
             }
             // if it didn't die, attack.
-            p1.takeDamage(e1[0].onAttack());
+            p1.takeDamage(e1[0].attack());
             //check if the player died.
             if(p1.checkIfDead()){
                 inBattle = false;
